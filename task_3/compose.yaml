@@ -1,0 +1,8 @@
+services:
+  tests:
+    build: .
+    command: pytest tests/ -v -s
+    volumes:
+      - .:/app  # mounts your local code so you don't rebuild on every change
+#    stdin_open: true
+#    tty: true
