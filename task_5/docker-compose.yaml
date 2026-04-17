@@ -1,0 +1,24 @@
+version: '3'
+services:
+  airflow:
+    build: .
+    volumes:
+      - ./airflow:/opt/airflow
+    ports:
+      - "8080:8080"
+    environment:
+      # ── Databricks credentials ──────────────────────────────────────────
+      # Fill these in before starting the container.
+      DATABRICKS_HOST: "https://your-workspace.azuredatabricks.net"
+      DATABRICKS_TOKEN: "dapi..."
+      DATABRICKS_HTTP_PATH: "/sql/1.0/warehouses/your-warehouse-id"
+
+      # ── Airflow e-mail (optional — needed for Task 5 / alerts) ─────────
+      AIRFLOW__SMTP__SMTP_HOST: "smtp.gmail.com"
+      AIRFLOW__SMTP__SMTP_STARTTLS: "True"
+      AIRFLOW__SMTP__SMTP_SSL: "False"
+      AIRFLOW__SMTP__SMTP_PORT: "587"
+      AIRFLOW__SMTP__SMTP_USER: "your-email@gmail.com"
+      AIRFLOW__SMTP__SMTP_PASSWORD: "your-app-password"
+      AIRFLOW__SMTP__SMTP_MAIL_FROM: "your-email@gmail.com"
+    command: airflow standalone
